@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.name          = "pgversion"
   gem.require_paths = ["lib"]
   gem.version       = PGVersion::VERSION
+  gem.license       = "MIT"
 
-  gem.add_development_dependency "rspec"
+  gem.add_development_dependency "rspec", '~> 4.0'
 end
