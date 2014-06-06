@@ -15,5 +15,5 @@ Gem::Specification.new do |gem|
   gem.version       = PGVersion::VERSION
   gem.license       = "MIT"
 
-  gem.add_development_dependency "rspec", '~> 4.0'
+  gem.add_development_dependency "rspec", '~> 3.0'
 end
