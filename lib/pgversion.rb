@@ -117,6 +117,12 @@ class PGVersion
   def beta?; @state == :beta; end
   def alpha?; @state == :alpha; end
 
+  # Return the major and minor components of the version as a String,
+  # omitting the point release
+  def major_minor
+    "#{major}.#{minor}"
+  end
+
   def to_s
     patch = if release?
               ".#{point}" unless point.nil?

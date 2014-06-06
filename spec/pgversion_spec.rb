@@ -27,6 +27,22 @@ describe PGVersion do
     end
   end
 
+  describe "#major_minor" do
+    [ PGVersion.new(8,3,:alpha1),
+      PGVersion.new(8,3,:alpha3),
+      PGVersion.new(8,3,:beta1),
+      PGVersion.new(8,3,:beta2),
+      PGVersion.new(8,3,:rc1),
+      PGVersion.new(8,3,:rc3),
+      PGVersion.new(8,3,0),
+      PGVersion.new(8,3,1),
+      PGVersion.new(8,3) ].each do |version|
+      it "should format #{version.to_s} as 8.3" do
+        expect(version.major_minor).to eq("8.3")
+      end
+    end
+  end
+
   describe "#<=>" do
     it "ignores bit_depth" do
       expect(PGVersion.new(9,0,0, bit_depth: 32) <=> PGVersion.new(9,0,0, bit_depth: 32)).to eq(0)
@@ -74,4 +90,3 @@ describe PGVersion do
     end
   end
 end
-
