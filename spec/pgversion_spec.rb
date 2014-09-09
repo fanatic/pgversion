@@ -35,8 +35,7 @@ describe PGVersion do
       PGVersion.new(8,3,:rc1),
       PGVersion.new(8,3,:rc3),
       PGVersion.new(8,3,0),
-      PGVersion.new(8,3,1),
-      PGVersion.new(8,3) ].each do |version|
+      PGVersion.new(8,3,1) ].each do |version|
       it "should format #{version.to_s} as 8.3" do
         expect(version.major_minor).to eq("8.3")
       end
@@ -63,7 +62,6 @@ describe PGVersion do
       PGVersion.new(8,3,:rc3),
       PGVersion.new(8,3,0),
       PGVersion.new(8,3,1),
-      PGVersion.new(8,3),
       PGVersion.new(8,14,0),
       PGVersion.new(9,4,0),
       PGVersion.new(10,0,:alpha1),
@@ -75,7 +73,8 @@ describe PGVersion do
       PGVersion.new(10,0,0),
       PGVersion.new(10,0,2),
       PGVersion.new(10,0,10),
-      PGVersion.new(10,0)
+      PGVersion.new(12,0),
+      PGVersion.new(12,0,1)
     ].each_with_index.to_a.repeated_permutation(2).each do |(l,lidx), (r,ridx)|
       expected = lidx <=> ridx
       it "compares #{l} to #{r} and gets #{expected}" do

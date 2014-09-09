@@ -5,7 +5,7 @@
 class PGVersion
   include Comparable
 
-  VERSION = "0.0.2"
+  VERSION = "0.0.3"
 
   # The major and minor version taken together determine the stable
   # interface to Postgres. New features may be introduced or breaking
@@ -17,9 +17,8 @@ class PGVersion
   # changes made when either of these change.
   attr_reader :minor
 
-  # The point release, for release states. Note that this may be nil,
-  # which is considered later than all other releases. Always nil
-  # when state is not :release.
+  # The point release, for release states. Always nil when state is
+  # not :release.
   attr_reader :point
 
   # The state of a release: :alpha, :beta, :rc, or :release
@@ -55,17 +54,18 @@ class PGVersion
   end
 
   # Initialize a new PGVersion
-  def initialize(major, minor, point=nil, host: nil, compiler: nil, bit_depth: nil)
+  def initialize(major, minor, point=0, host: nil, compiler: nil, bit_depth: nil)
     @major = major
     @minor = minor
-    if point.nil? || point.is_a?(Fixnum)
+    if point.is_a?(Fixnum)
       @point = point
       @state = :release
     else
       verstr_states = ALLOWED_STATES.reject { |s| s == :release }.map(&:to_s)
       @state, @revision = point.to_s.match(
                           /(#{verstr_states.join('|')})(\d+)/
-                        ) && $1.to_sym, $2.to_i
+                                          ) && $1.to_sym, $2.to_i
+      @point = nil
       unless @state && @revision
         raise ArgumentError, "Unknown point release: #{point}"
       end
@@ -75,9 +75,7 @@ class PGVersion
     @bit_depth = bit_depth
   end
 
-  # Compare to another PGVersion. Note that an unspecified point
-  # release version is considered higher than every point version of
-  # the same state.
+  # Compare to another PGVersion.
   def <=>(other)
     if self.major < other.major
       -1
@@ -96,15 +94,7 @@ class PGVersion
         elsif self_state_idx > other_state_idx
           1
         elsif self.state == :release
-          if self.point.nil? && other.point.nil?
-            0
-          elsif other.point.nil?
-            -1
-          elsif self.point.nil?
-            1
-          else
-            self.point <=> other.point
-          end
+          self.point <=> other.point
         else
           self.revision <=> other.revision
         end
@@ -125,7 +115,7 @@ class PGVersion
 
   def to_s
     patch = if release?
-              ".#{point}" unless point.nil?
+              ".#{point}"
             else
               "#{state}#{revision}"
             end
