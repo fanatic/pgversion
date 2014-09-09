@@ -29,7 +29,7 @@ class PGVersion
   # may go through several revisions in that state before moving to
   # the next state. Nil when state is :release.
   attr_reader :revision
-  
+
   # The host architecture of the given binary
   attr_reader :host
   # The compiler used to build the given binary
@@ -74,7 +74,7 @@ class PGVersion
     @compiler = compiler
     @bit_depth = bit_depth
   end
- 
+
   # Compare to another PGVersion. Note that an unspecified point
   # release version is considered higher than every point version of
   # the same state.
@@ -147,7 +147,7 @@ class PGVersion
   attr_reader :state
 
   private
-  
+
   VERSION_REGEXP = /PostgreSQL (\d+)\.(\d+).?((?:alpha|beta|rc)?\d+) on ([^,]+), compiled by ([^,]+), (\d+)-bit/
   ALLOWED_STATES = %i(alpha beta rc release)
 end
