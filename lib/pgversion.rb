@@ -54,7 +54,7 @@ class PGVersion
   end
 
   # Initialize a new PGVersion
-  def initialize(major, minor, point=0, host: nil, compiler: nil, bit_depth: nil)
+  def initialize(major, minor, point=nil, host: nil, compiler: nil, bit_depth: nil)
     @major = major
     @minor = minor
     if point.is_a?(Integer) || (major >=10 && point.nil?)
