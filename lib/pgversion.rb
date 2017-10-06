@@ -57,7 +57,7 @@ class PGVersion
   def initialize(major, minor, point=0, host: nil, compiler: nil, bit_depth: nil)
     @major = major
     @minor = minor
-    if point.is_a?(Fixnum)
+    if point.is_a?(Integer) || (major >=10 && point.nil?)
       @point = point
       @state = :release
     else
@@ -115,7 +115,7 @@ class PGVersion
 
   def to_s
     patch = if release?
-              ".#{point}"
+              point.nil? ? "" : ".#{point}"
             else
               "#{state}#{revision}"
             end
@@ -138,6 +138,6 @@ class PGVersion
 
   private
 
-  VERSION_REGEXP = /PostgreSQL (\d+)\.(\d+).?((?:alpha|beta|rc)?\d+) on ([^,]+), compiled by ([^,]+), (\d+)-bit/
+  VERSION_REGEXP = /PostgreSQL (\d+)\.(\d+).?((?:alpha|beta|rc)?\d+)? on ([^,]+), compiled by ([^,]+), (\d+)-bit/
   ALLOWED_STATES = %i(alpha beta rc release)
 end

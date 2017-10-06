@@ -11,8 +11,8 @@ describe PGVersion do
       PGVersion.new(9,0,:beta2, host: 'x86_64-unknown-linux-gnu', compiler: 'gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2', bit_depth: 64),
     "PostgreSQL 8.4alpha3 on x86_64-unknown-linux-gnu, compiled by gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2, 64-bit" =>
       PGVersion.new(8,4,:alpha3, host: 'x86_64-unknown-linux-gnu', compiler: 'gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2', bit_depth: 64),
-    "PostgreSQL 10.0.0 on x86_64-unknown-linux-gnu, compiled by gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2, 64-bit" =>
-      PGVersion.new(10,0,0, host: 'x86_64-unknown-linux-gnu', compiler: 'gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2', bit_depth: 64)
+    "PostgreSQL 10.0 on x86_64-unknown-linux-gnu, compiled by gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2, 64-bit" =>
+      PGVersion.new(10,0,nil, host: 'x86_64-unknown-linux-gnu', compiler: 'gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2', bit_depth: 64)
   }.each do |version_str, version|
     describe '.parse' do
       it "parses #{version_str} into corresponding version #{version}" do
@@ -70,11 +70,11 @@ describe PGVersion do
       PGVersion.new(10,0,:beta2),
       PGVersion.new(10,0,:rc1),
       PGVersion.new(10,0,:rc3),
-      PGVersion.new(10,0,0),
-      PGVersion.new(10,0,2),
-      PGVersion.new(10,0,10),
+      PGVersion.new(10,0),
+      PGVersion.new(10,2),
+      PGVersion.new(10,10),
       PGVersion.new(12,0),
-      PGVersion.new(12,0,1)
+      PGVersion.new(12,1)
     ].each_with_index.to_a.repeated_permutation(2).each do |(l,lidx), (r,ridx)|
       expected = lidx <=> ridx
       it "compares #{l} to #{r} and gets #{expected}" do
