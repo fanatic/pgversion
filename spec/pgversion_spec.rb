@@ -12,7 +12,9 @@ describe PGVersion do
     "PostgreSQL 8.4alpha3 on x86_64-unknown-linux-gnu, compiled by gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2, 64-bit" =>
       PGVersion.new(8,4,:alpha3, host: 'x86_64-unknown-linux-gnu', compiler: 'gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2', bit_depth: 64),
     "PostgreSQL 10.0 on x86_64-unknown-linux-gnu, compiled by gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2, 64-bit" =>
-      PGVersion.new(10,0,nil, host: 'x86_64-unknown-linux-gnu', compiler: 'gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2', bit_depth: 64)
+      PGVersion.new(10,0,nil, host: 'x86_64-unknown-linux-gnu', compiler: 'gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2', bit_depth: 64),
+    "PostgreSQL 10.1 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4, 64-bit" =>
+      PGVersion.new(10,1,nil, host: 'x86_64-pc-linux-gnu', compiler: 'gcc (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4', bit_depth: 64)
   }.each do |version_str, version|
     describe '.parse' do
       it "parses #{version_str} into corresponding version #{version}" do
@@ -38,6 +40,12 @@ describe PGVersion do
       PGVersion.new(8,3,1) ].each do |version|
       it "should format #{version.to_s} as 8.3" do
         expect(version.major_minor).to eq("8.3")
+      end
+    end
+    [ PGVersion.new(10,1, nil),
+      PGVersion.new(10,0, nil) ].each do |version|
+      it "should format #{version.to_s} as 10" do
+        expect(version.major_minor).to eq("10")
       end
     end
   end

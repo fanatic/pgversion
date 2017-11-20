@@ -110,7 +110,12 @@ class PGVersion
   # Return the major and minor components of the version as a String,
   # omitting the point release
   def major_minor
-    "#{major}.#{minor}"
+    case major
+    when 10
+      "#{major}"
+    else
+      "#{major}.#{minor}"
+    end
   end
 
   def to_s
