@@ -5,7 +5,7 @@
 class PGVersion
   include Comparable
 
-  VERSION = "0.0.4"
+  VERSION = "0.0.5"
 
   # The major and minor version taken together determine the stable
   # interface to Postgres. New features may be introduced or breaking
