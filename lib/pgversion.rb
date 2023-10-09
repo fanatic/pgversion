@@ -143,6 +143,6 @@ class PGVersion
 
   private
 
-  VERSION_REGEXP = /PostgreSQL (\d+)\.(\d+).?((?:alpha|beta|rc)?\d+)? on ([^,]+), compiled by ([^,]+), (\d+)-bit/
+  VERSION_REGEXP = /PostgreSQL (\d+)\.(\d+).?((?:alpha|beta|rc)?\d+)?(?: \([^)]*\))? on ([^,]+), compiled by ([^,]+), (\d+)-bit/
   ALLOWED_STATES = %i(alpha beta rc release)
 end
